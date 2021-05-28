@@ -1,14 +1,10 @@
-package array.day02;
+package array;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author : Fr
@@ -258,5 +254,12 @@ public class SolutionTest {
     public void nextGreaterElements() {
         int[] in = {1,2,1};
         System.out.println(Arrays.toString(solution.nextGreaterElements(in)));
+    }
+
+    @Test
+    public void checkInclusion() {
+        String s1 = "acbctyz";
+        String s2 = "caczcacbczty";
+        System.out.println(solution.checkInclusion(s1, s2));
     }
 }

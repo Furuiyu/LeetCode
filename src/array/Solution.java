@@ -1,5 +1,4 @@
-package array.day02;
-
+package array;
 
 
 import java.util.*;
@@ -27,14 +26,40 @@ public class Solution {
         }
 
     }
+    public boolean checkInclusion(String s1, String s2) {
+
+
+        if (s1.length()>s2.length()){
+            return false;
+        }
+        int windowSize = s1.length();
+        int[] freq1 =  new int[26];
+        int[] freq2 =  new int[26];
+        for (int i = 0; i < windowSize; i++) {
+            freq1[s1.charAt(i)-'a']++;
+            freq2[s2.charAt(i)-'a']++;
+
+        }
+        for (int i = windowSize; i < s2.length(); i++) {
+            if (Arrays.equals(freq1,freq2)){
+                return true;
+            }else {
+                freq2[s2.charAt(i - windowSize) - 'a']--;
+                freq2[s2.charAt(i) - 'a']++;
+
+            }
+        }
+        return Arrays.equals(freq1,freq2);
+
+    }
 
     /**
-     * ´úÂëÖĞµÄÀàÃû¡¢·½·¨Ãû¡¢²ÎÊıÃûÒÑ¾­Ö¸¶¨£¬ÇëÎğĞŞ¸Ä£¬Ö±½Ó·µ»Ø·½·¨¹æ¶¨µÄÖµ¼´¿É
+     * ä»£ç ä¸­çš„ç±»åã€æ–¹æ³•åã€å‚æ•°åå·²ç»æŒ‡å®šï¼Œè¯·å‹¿ä¿®æ”¹ï¼Œç›´æ¥è¿”å›æ–¹æ³•è§„å®šçš„å€¼å³å¯
      *
-     * @param n         intÕûĞÍ ÍæÅ¼Êı
-     * @param m         intÕûĞÍ Çø¼äÊı
-     * @param intervals IntervalÀàÒ»Î¬Êı×é ±íÊ¾Çø¼ä
-     * @return intÕûĞÍ
+     * @param n         intæ•´å‹ ç©å¶æ•°
+     * @param m         intæ•´å‹ åŒºé—´æ•°
+     * @param intervals Intervalç±»ä¸€ç»´æ•°ç»„ è¡¨ç¤ºåŒºé—´
+     * @return intæ•´å‹
      */
     public int doll(int n, int m, int[] intervals) {
         LinkedHashMap<Integer, Boolean> map = new LinkedHashMap<>();
@@ -157,14 +182,14 @@ public class Solution {
     }
 
     public int findKthLargest(int[] nums, int k) {
-        //×¢ÒâÕâÀïµÄkÒÑ¾­±äÁË
+        //æ³¨æ„è¿™é‡Œçš„kå·²ç»å˜äº†
         k = nums.length - k;
         int low = 0, high = nums.length - 1;
         while (low <= high) {
             int i = low;
-            //ÕâÀï°ÑÊı×éÒÔA[low]µÄ´óĞ¡·ÖÎªÁ½²¿·Ö£¬
-            //Ò»²¿·ÖÊÇĞ¡ÓÚA[low]µÄ£¬Ò»²¿·ÖÊÇ´óÓÚA[low]µÄ
-            // [low,i]<A[low]£¬[i+1,j)>=A[low]
+            //è¿™é‡ŒæŠŠæ•°ç»„ä»¥A[low]çš„å¤§å°åˆ†ä¸ºä¸¤éƒ¨åˆ†ï¼Œ
+            //ä¸€éƒ¨åˆ†æ˜¯å°äºA[low]çš„ï¼Œä¸€éƒ¨åˆ†æ˜¯å¤§äºA[low]çš„
+            // [low,i]<A[low]ï¼Œ[i+1,j)>=A[low]
             for (int j = low + 1; j <= high; j++) {
                 if (nums[j] < nums[low]) {
                     swap(nums, j, ++i);
@@ -236,7 +261,7 @@ public class Solution {
             if (matrix[column][raw] > target) {
                 return false;
             }
-            System.out.printf("%dĞĞ%dÁĞ%d\n", column, raw, matrix[column][raw]);
+            System.out.printf("%dè¡Œ%dåˆ—%d\n", column, raw, matrix[column][raw]);
 
 
             if (column + 1 < matrix.length && !flag && matrix[column + 1][raw] <= target) {
@@ -495,7 +520,7 @@ public class Solution {
 
         String temp = "";
 
-        //tµÄ³¤¶È,Ã¿´Î·¢ÏÖÒ»¸öÔªËØ,¾Í½«´°¿Ú¼õĞ¡Ò»´Î,´ú±íÖ´ĞĞÁËÒ»´ÎÆµÂÊ±ä»¯
+        //tçš„é•¿åº¦,æ¯æ¬¡å‘ç°ä¸€ä¸ªå…ƒç´ ,å°±å°†çª—å£å‡å°ä¸€æ¬¡,ä»£è¡¨æ‰§è¡Œäº†ä¸€æ¬¡é¢‘ç‡å˜åŒ–
         int len = t.length();
         int left;
         int right = 0;
@@ -507,11 +532,11 @@ public class Solution {
         while (right < s.length()) {
             while (len != 0 && right < s.length()) {
                 if (needs[s.charAt(right)] >= 1) {
-                    //Èë´°¿Ú
+                    //å…¥çª—å£
                     len--;
                     needs[s.charAt(right)]--;
                 } else if (freq[s.charAt(right)] >= 1) {
-                    //¶ÔÓÚ¶àÓàÊı×Ö²åÈë
+                    //å¯¹äºå¤šä½™æ•°å­—æ’å…¥
                     needs[s.charAt(right)]--;
                 }
                 right++;
@@ -519,11 +544,11 @@ public class Solution {
             while (len == 0) {
                 if (freq[s.charAt(left)] > 0) {
 
-                    //ĞèÇó¹ı¶à
+                    //éœ€æ±‚è¿‡å¤š
                     if (needs[s.charAt(left)] < 0) {
                         needs[s.charAt(left)]++;
                     }
-                    //ĞèÇó¸ÕºÃÓÃ¹â
+                    //éœ€æ±‚åˆšå¥½ç”¨å…‰
                     else if ((needs[s.charAt(left)] == 0)) {
                         len++;
                         needs[s.charAt(left)]++;
@@ -565,7 +590,7 @@ public class Solution {
         int vCount = 0;
         int hCount = 0;
         while (pos < response.length) {
-            //Ïû¶¥,x++,y++´ú±í½øÈëĞÂ¾ØĞÎÖĞ
+            //æ¶ˆé¡¶,x++,y++ä»£è¡¨è¿›å…¥æ–°çŸ©å½¢ä¸­
             x++;
             y++;
 
@@ -577,9 +602,9 @@ public class Solution {
             }
             y--;
             x++;
-            //¶¥ÏûÍê,×İÏò³¤¶È¼õÉÙÒ»¸ö
+            //é¡¶æ¶ˆå®Œ,çºµå‘é•¿åº¦å‡å°‘ä¸€ä¸ª
             vCount++;
-            //¿ªÊ¼ÏûÓÒ²à
+            //å¼€å§‹æ¶ˆå³ä¾§
             for (int count = 0; count < matrix.length - vCount; count++) {
                 response[pos++] = matrix[x++][y];
             }
@@ -587,9 +612,9 @@ public class Solution {
                 break;
             }
 
-            //ÓÒ²àÏûÍê,ºáÏò³¤¶È¼õÉÙÒ»¸ö
+            //å³ä¾§æ¶ˆå®Œ,æ¨ªå‘é•¿åº¦å‡å°‘ä¸€ä¸ª
             hCount++;
-            //Ïûµ×
+            //æ¶ˆåº•
             x--;
             y--;
             for (int count = 0; count < matrix[0].length - hCount; count++) {
@@ -604,7 +629,7 @@ public class Solution {
 //            9,10,11,12
 //            13,14,15,16
 
-            //Ïû×ó²à
+            //æ¶ˆå·¦ä¾§
             vCount++;
             y++;
             x--;
@@ -806,6 +831,3 @@ public class Solution {
 
 
 }
-
-
-
