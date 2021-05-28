@@ -52,6 +52,48 @@ public class Solution {
         return Arrays.equals(freq1,freq2);
 
     }
+    public String multiply(String num1, String num2) {
+        if (num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+        int[] res = new int[num1.length() + num2.length()];
+        for (int i = num1.length() - 1; i >= 0; i--) {
+            int n1 = num1.charAt(i) - '0';
+            for (int j = num2.length() - 1; j >= 0; j--) {
+                int n2 = num2.charAt(j) - '0';
+                int sum = (res[i + j + 1] + n1 * n2);
+                res[i + j + 1] = sum % 10;
+                res[i + j] += sum / 10;
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < res.length; i++) {
+            if (i == 0 && res[i] == 0) continue;
+            result.append(res[i]);
+        }
+        return result.toString();
+    }
+    public String reverseWords(String s) {
+        String[] arr  = s.trim().split(" +");
+        int left = 0;
+        int right = arr.length-1;
+        while (left<right){
+            while (!Character.isAlphabetic(arr[left].charAt(0))){
+                left++;
+            }
+            while (!Character.isAlphabetic(arr[right].charAt(0))){
+                right--;
+            }
+            String temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+        return String.join(" ", arr);
+
+    }
 
     /**
      * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可

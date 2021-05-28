@@ -262,4 +262,14 @@ public class SolutionTest {
         String s2 = "caczcacbczty";
         System.out.println(solution.checkInclusion(s1, s2));
     }
+    @Test
+    public void test() {
+        String s1 = "acb5tyz";
+        System.out.println(s1.toUpperCase());
+    }
+
+    @Test
+    public void reverseWords() {
+        System.out.println(solution.reverseWords("  hello world  "));
+    }
 }
